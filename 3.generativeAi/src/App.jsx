@@ -18,7 +18,6 @@ function App() {
 		e.preventDefault();
 		setLoading(true);
 		setData("");
-		console.log("hi");
 		if (!input) {
 			setData("Please enter a prompt");
 			return;
@@ -32,9 +31,10 @@ function App() {
 				console.log("response initiated");
 				setData(res.response.text());
 				console.log("value of data", res.response.text());
+				console.log("value of data", res.response);
 			})
 			.catch((error) => {
-				console.log("api fetch error", error);
+				console.log("gemini api fetch error", error);
 			})
 			.finally(() => {
 				setLoading(false);
@@ -84,7 +84,7 @@ function App() {
 			</div>
 
 			{data && (
-				<p className="text-lg md:text-xl px-5 py-2 rounded-xl  text-white border border-gray-500 mt-4 mx-5 md:mx-20 lg:mx40">
+				<p className="text-lg md:text-2xl px-5 py-2 rounded-xl  text-white border border-gray-500 mt-4 mx-5 md:mx-20 lg:mx40">
 					<ReactMarkdown>{data}</ReactMarkdown>
 				</p>
 			)}
