@@ -2,14 +2,21 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger,
+} from "@/components/ui/accordion";
+
+import {
 	Carousel,
 	CarouselContent,
 	CarouselItem,
-	CarouselNext,
-	CarouselPrevious,
 } from "@/components/ui/carousel";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import companies from "../components/data/Companies.json";
-import Autoplay from 'embla-carousel-autoplay'
+import faq from "../components/data/faq";
+import Autoplay from "embla-carousel-autoplay";
 
 function LandingPage() {
 	return (
@@ -42,20 +49,50 @@ function LandingPage() {
 					</Button>
 				</Link>
 			</div>
-			<Carousel plugins={[Autoplay({ delay: 2000})]} className="w-full py-10">
-				<CarouselContent className="flex gap-5 sm:gap-20 item-center">{
-					companies.map(({ name, id, path }) => {
+			<Carousel plugins={[Autoplay({ delay: 2000 })]} className="w-full py-10">
+				<CarouselContent className="flex gap-5 sm:gap-20 item-center">
+					{companies.map(({ name, id, path }) => {
 						return (
-							<CarouselItem className="basis-1/3 lg:basis-1/6" >
-							<img key={id} src={path} alt={name} className="h-9 sm:h-14 object-contain" />	
-						</CarouselItem>
-					)
-				})
-				}</CarouselContent>
+							<CarouselItem className="basis-1/3 lg:basis-1/6">
+								<img
+									key={id}
+									src={path}
+									alt={name}
+									className="h-9 sm:h-14 object-contain"
+								/>
+							</CarouselItem>
+						);
+					})}
+				</CarouselContent>
 			</Carousel>
 
-			{/* banner */}
-			<section>{/* card */}</section>
+			<img src="/banner.jpeg" alt="bannner" />
+			<section className="grid grid-cols-1 md:grid-cols-2 gap-4">
+				<Card>
+					<CardHeader>
+						<CardTitle> For Job Seekers</CardTitle>
+					</CardHeader>
+					<CardContent>
+						Search and apply for jobs, track applications, and more.
+					</CardContent>
+				</Card>
+				<Card>
+					<CardHeader>
+						<CardTitle>For Employers</CardTitle>
+					</CardHeader>
+					<CardContent>
+						Post jobs, manage applications, and find the best candidates.
+					</CardContent>
+				</Card>
+			</section>
+			<Accordion type="multiple" collapsible>
+				{faq.map(({ question, answer }, index) => (
+					<AccordionItem key={index} value={index + 1}>
+						<AccordionTrigger>{question}</AccordionTrigger>
+						<AccordionContent>{answer}</AccordionContent>
+					</AccordionItem>
+				))}
+			</Accordion>
 		</main>
 	);
 }
